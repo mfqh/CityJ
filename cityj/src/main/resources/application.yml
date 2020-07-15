@@ -1,0 +1,13 @@
+spring:
+  #数据源
+  datasource:
+    username: root
+    password: gyx814930895
+    url: jdbc:mysql://localhost:3306/cityj?serverTimezone=GMT
+mybatis:
+  #mybatis相关配置
+  config-location: classpath:Mybatis/mybatis.xml
+  mapper-locations: classpath:Mybatis/Mapper/*.xml
+logging:
+  #修改默认配置文件名
+  config: classpath:log4j2.xml

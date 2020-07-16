@@ -1,9 +1,10 @@
 package com.whut.cityj.bean;
 
+
 /**
- * 用户
+ * 管理员
  */
-public class User {
+public class Manager {
 
     private int id;
 
@@ -11,16 +12,7 @@ public class User {
 
     private String password;
 
-    private Integer testCount;
-
-    private Integer averScore;
-
-    public User() {
-    }
-
-    public User(String name, String password) {
-        this.name = name;
-        this.password = password;
+    public Manager() {
     }
 
     public int getId() {
@@ -47,30 +39,12 @@ public class User {
         this.password = password;
     }
 
-    public Integer getTestCount() {
-        return testCount;
-    }
-
-    public void setTestCount(Integer testCount) {
-        this.testCount = testCount;
-    }
-
-    public Integer getAverScore() {
-        return averScore;
-    }
-
-    public void setAverScore(Integer averScore) {
-        this.averScore = averScore;
-    }
-
     @Override
     public String toString() {
-        return "User{" +
+        return "Manager{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
-                ", testCount=" + testCount +
-                ", averScore=" + averScore +
                 '}';
     }
 }

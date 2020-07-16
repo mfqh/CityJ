@@ -18,4 +18,18 @@ public class UserServiceImpl implements UserService {
         return userMapper.selUser(name, password);
     }
 
+    @Override
+    public Boolean judgeUser(String name) {
+        if(userMapper.selUserExist(name) != null){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Boolean insUser(User user) {
+        return userMapper.insUser(user);
+    }
+
+
 }

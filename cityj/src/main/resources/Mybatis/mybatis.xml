@@ -6,6 +6,8 @@
 <configuration>
 
     <settings>
+        <!--将下划线映射为驼峰-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
         <!-- 开启延迟加载（两者必须同时设置） -->
         <setting name="lazyLoadingEnabled" value="true" />
         <!-- 是否查询所有数据 -->

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whut.cityj.mapper.ExamPaperMapper">
+
+
+    <!--查询库中未到测试时间试卷-->
+    <select id="selAllPaper" resultType="com.whut.cityj.bean.ExamPaper">
+        select id,name,date,sign from exam_paper where sign = 0;
+    </select>
+
+    <!--查询某一试卷所有题目-->
+    <select id="selAllQuestion" resultType="com.whut.cityj.bean.ExamQuestion">
+        SELECT id,eid,que_number,question,answer,sign FROM exam_question WHERE eid = #{param1}
+    </select>
+
+
+
+</mapper>

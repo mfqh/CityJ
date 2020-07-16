@@ -4,6 +4,11 @@ spring:
     username: root
     password: gyx814930895
     url: jdbc:mysql://localhost:3306/cityj?serverTimezone=GMT
+  #Redis
+  redis:
+    host: 192.168.55.44
+    ip: 6379
+    password: password
 mybatis:
   #mybatis相关配置
   config-location: classpath:Mybatis/mybatis.xml

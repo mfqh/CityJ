@@ -13,9 +13,19 @@
 
     <!--查询某一试卷所有题目-->
     <select id="selAllQuestion" resultType="com.whut.cityj.bean.ExamQuestion">
-        SELECT id,eid,que_number,question,answer,sign FROM exam_question WHERE eid = #{param1}
+        SELECT id,eid,que_number,question,answer,sign,score FROM exam_question WHERE eid = #{param1}
     </select>
 
+    <!--查询某一试卷及其所有题目-->
+    <select id="selOnePaper" resultMap="TotalPaper">
+        select id,name,date,sign from exam_paper where id=#{id};
+    </select>
+
+    <resultMap id="TotalPaper" type="com.whut.cityj.bean.ExamPaper">
+        <id property="id" column="id"></id>
+        <!--<collection property="questions" select="com.whut.cityj.mapper.ExamPaperMapper.selAllQuestion"
+                    ofType="com.whut.cityj.bean.ExamQuestion" column="id" />-->
+    </resultMap>
 
 
 </mapper>

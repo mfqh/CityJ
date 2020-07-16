@@ -19,5 +19,5 @@ public interface ExamPaperMapper {
       public Map<Integer, ExamQuestion> selAllQuestion(int id);
 
       //查询某一试卷及其所有题目
-
+      public ExamPaper selOnePaper(int id);
 }

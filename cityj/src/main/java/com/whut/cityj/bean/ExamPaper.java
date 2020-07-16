@@ -1,8 +1,8 @@
 package com.whut.cityj.bean;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 试卷
@@ -18,7 +18,7 @@ public class ExamPaper {
     private Integer sign;
 
     //题号--题目
-    private HashMap<Integer, ExamQuestion> questions;
+    private Map<Integer, ExamQuestion> questions;
 
     public ExamPaper() {
     }

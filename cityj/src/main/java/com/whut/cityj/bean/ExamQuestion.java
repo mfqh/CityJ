@@ -17,6 +17,8 @@ public class ExamQuestion {
 
     private Integer sign;
 
+    private Integer score;
+
     public ExamQuestion() {
     }
 
@@ -68,6 +70,14 @@ public class ExamQuestion {
         this.sign = sign;
     }
 
+    public Integer getScore() {
+        return score;
+    }
+
+    public void setScore(Integer score) {
+        this.score = score;
+    }
+
     @Override
     public String toString() {
         return "ExamQuestion{" +
@@ -77,6 +87,7 @@ public class ExamQuestion {
                 ", question='" + question + '\'' +
                 ", answer='" + answer + '\'' +
                 ", sign=" + sign +
+                ", score=" + score +
                 '}';
     }
 }

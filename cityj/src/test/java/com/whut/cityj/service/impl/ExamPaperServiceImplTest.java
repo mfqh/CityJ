@@ -19,6 +19,7 @@ class ExamPaperServiceImplTest {
     public void testSelAll(){
         System.err.println(examPagerServiceImpl);
         System.err.println(examPagerServiceImpl.getAllPaper());
+        System.err.println(examPagerServiceImpl.getExamPaper(1));
     }
 
     @Test
@@ -26,6 +27,9 @@ class ExamPaperServiceImplTest {
         System.err.println(examPaperMapper);
 //        System.err.println(examPaperMapper.selAllPaper());
         System.out.println(examPaperMapper.selAllQuestion(1));
+
+        System.err.println(examPaperMapper.selOnePaper(1));
+
     }
 
 }

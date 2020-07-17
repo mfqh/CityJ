@@ -31,6 +31,18 @@ public class PaperUtil {
         return list;
     }
 
+    public static String formatQuestion(String question[]){
+        StringBuilder resultQuestion = new StringBuilder();
+
+        //使用自定义的分隔符进行分割
+        for (int i = 0; i < question.length; i++) {
+            resultQuestion.append(question[i]).append(StateUtil.QUES_DIVISION);
+        }
+        resultQuestion.deleteCharAt(resultQuestion.length()-1);
+
+        return resultQuestion.toString();
+    }
+
     /**
      * 将字符串日期转换为日期格式
      * @param date 字符串日期（****-**-** **：**：**）

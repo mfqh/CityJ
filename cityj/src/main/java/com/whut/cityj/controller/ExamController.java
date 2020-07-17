@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -125,30 +123,35 @@ public class ExamController {
         String scores[] = score.split(StateUtil.QUES_DIVISION);
         Integer totalScore = Integer.parseInt(scores[0]);
         Integer queScore = Integer.parseInt(scores[1]);
-        //设置过期时间为0
-        stringRedisTemplate.expire("question:"+user.getId()+":score", Duration.ZERO);
-        stringRedisTemplate.expire("question:"+user.getId()+":answer", Duration.ZERO);
-        //取出试卷Id
-        int id = (int)session.getAttribute("paperId");
-        //从session中移除试卷
-        session.removeAttribute("questions");
-        session.removeAttribute("paperId");
         //防止前后空格影响判断
         if(answer.trim().equals(queryAnswer.trim())){
             totalScore += queScore;
         }
+        //取出试卷Id
+        int id = (int)session.getAttribute("paperId");
         //将成绩存入分数排行数据库
         LocalDateTime localDateTime = LocalDateTime.now();
         PaperRank paperRank = new PaperRank(id, user.getId(), totalScore, localDateTime);
-        //返回成绩统计页面
-        return "result";
+        if(examPaperServiceImpl.addNewScore(paperRank)){
+            //提交成功
+            //设置过期时间为0
+            stringRedisTemplate.expire("question:"+user.getId()+":score", Duration.ZERO);
+            stringRedisTemplate.expire("question:"+user.getId()+":answer", Duration.ZERO);
+            //从session中移除试卷
+            session.removeAttribute("questions");
+            session.removeAttribute("paperId");
+            //返回成绩统计页面
+            return "result";
+        }
+        //重新提交
+        return "error";
     }
 
     /**
      * 根据试卷编号，来查询具体分数和使用时间
-     * @param eid
-     * @param session
-     * @return
+     * @param eid 试卷编号
+     * @param session 内置Session对象
+     * @return 用户分数状态
      */
     @GetMapping("/examScore/{eid}")
     public PaperRank examScore(@PathVariable("eid") Integer eid,

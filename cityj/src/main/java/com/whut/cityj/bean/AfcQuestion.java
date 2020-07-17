@@ -1,13 +1,13 @@
 package com.whut.cityj.bean;
 
 /**
- * 试卷题目
+ * 课后习题
  */
-public class ExamQuestion {
+public class AfcQuestion {
 
     private Integer id;
 
-    private Integer eid;
+    private Integer cid;
 
     private Integer queNumber;
 
@@ -15,20 +15,11 @@ public class ExamQuestion {
 
     private String answer;
 
+    private Integer analy;
+
     private Integer sign;
 
-    private Integer score;
-
-    public ExamQuestion() {
-    }
-
-    public ExamQuestion(Integer eid, Integer queNumber, String question, String answer, Integer sign, Integer score) {
-        this.eid = eid;
-        this.queNumber = queNumber;
-        this.question = question;
-        this.answer = answer;
-        this.sign = sign;
-        this.score = score;
+    public AfcQuestion() {
     }
 
     public Integer getId() {
@@ -39,12 +30,12 @@ public class ExamQuestion {
         this.id = id;
     }
 
-    public Integer getEid() {
-        return eid;
+    public Integer getCid() {
+        return cid;
     }
 
-    public void setEid(Integer eid) {
-        this.eid = eid;
+    public void setCid(Integer cid) {
+        this.cid = cid;
     }
 
     public Integer getQueNumber() {
@@ -71,6 +62,14 @@ public class ExamQuestion {
         this.answer = answer;
     }
 
+    public Integer getAnaly() {
+        return analy;
+    }
+
+    public void setAnaly(Integer analy) {
+        this.analy = analy;
+    }
+
     public Integer getSign() {
         return sign;
     }
@@ -79,24 +78,16 @@ public class ExamQuestion {
         this.sign = sign;
     }
 
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
     @Override
     public String toString() {
-        return "ExamQuestion{" +
+        return "AfcQuestion{" +
                 "id=" + id +
-                ", eid=" + eid +
+                ", cid=" + cid +
                 ", queNumber=" + queNumber +
                 ", question='" + question + '\'' +
                 ", answer='" + answer + '\'' +
+                ", analy=" + analy +
                 ", sign=" + sign +
-                ", score=" + score +
                 '}';
     }
 }

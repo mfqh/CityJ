@@ -17,4 +17,12 @@ public interface ExamPaperService {
 
     public PaperRank getOneScore(PaperRank paperRank);
 
+    public Boolean addNewScore(PaperRank paperRank);
+
+    public Boolean delPaper(int id);
+
+    public Integer addNewPaper(ExamPaper examPaper);
+
+    public Boolean addNewQuestion(ExamQuestion examQuestion);
+
 }

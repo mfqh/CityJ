@@ -27,4 +27,15 @@ public interface ExamPaperMapper {
 
       //根据uid，eid查询分数信息
       public PaperRank selOneScore(PaperRank paperRank);
+
+      //删除试卷信息
+      public Boolean delExamPaper(int eid);
+      //删除试卷题目
+      public Boolean delExamQuestion(int eid);
+
+      //插入一张新的试卷
+      public Boolean insNewPaper(ExamPaper examPaper);
+
+      //向试卷中插入题目
+      public Boolean insNewQuestion(ExamQuestion examQuestion);
 }

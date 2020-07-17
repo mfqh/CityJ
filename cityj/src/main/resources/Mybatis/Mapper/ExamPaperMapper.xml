@@ -16,7 +16,7 @@
         SELECT id,eid,que_number,question,answer,sign,score FROM exam_question WHERE eid = #{param1}
     </select>
 
-    <!--查询某一试卷及其所有题目-->
+    <!--查询某一试卷-->
     <select id="selOnePaper" resultType="com.whut.cityj.bean.ExamPaper">
         select id,name,date,sign from exam_paper where id=#{param1};
     </select>
@@ -37,12 +37,32 @@
         <result property="score" column="score"></result>
         <result property="time" column="time"></result>
         <association property="examPaper" select="com.whut.cityj.mapper.ExamPaperMapper.selOnePaper" column="eid"
-                        javaType="com.whut.cityj.bean.ExamPaper" >
+                        javaType="com.whut.cityj.bean.ExamPaper" fetchType="lazy">
             <id property="id" column="id"></id>
             <result property="name" column="name"></result>
             <result property="date" column="date"></result>
             <result property="sign" column="sign"></result>
         </association>
     </resultMap>
+
+    <!--删除试卷信息-->
+    <delete id="delExamPaper">
+        delete from exam_paper where id = #{0}
+    </delete>
+    <!--删除试卷所对应的题目信息-->
+    <delete id="delExamQuestion">
+        delete from exam_question where eid= #{0}
+    </delete>
+
+    <!--插入新的试卷-->
+    <insert id="insNewPaper" useGeneratedKeys="true" keyProperty="id">
+        insert into exam_paper(name, date) values(#{name}, #{date})
+    </insert>
+
+    <!--向试卷中插入新的题目-->
+    <insert id="insNewQuestion">
+        insert into exam_question(eid, que_number, question, answer, sign, score)
+        values(#{eid}, #{queNumber}, #{question}, #{answer}, #{sign}, #{score})
+    </insert>
 
 </mapper>

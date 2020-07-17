@@ -24,4 +24,10 @@ public class StateUtil {
     //分割符
     public final static String QUES_DIVISION ="$";
 
+    //操作状态
+    //成功
+    public final static Integer SUCCESS_STATE = 1;
+    //失败
+    public final static Integer FAIL_STATE = 0;
+
 }

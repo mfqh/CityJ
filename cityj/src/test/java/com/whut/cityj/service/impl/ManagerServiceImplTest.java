@@ -19,9 +19,9 @@ class ManagerServiceImplTest {
 
     @Test
     public void testManager(){
-        System.err.println(managerMapper);
-        System.err.println(managerServiceImpl);
-        System.err.println(managerServiceImpl.seekManager("张三", "123456").toString());
+//        System.err.println(managerMapper);
+//        System.err.println(managerServiceImpl);
+//        System.err.println(managerServiceImpl.seekManager("张三", "123456").toString());
     }
 
 

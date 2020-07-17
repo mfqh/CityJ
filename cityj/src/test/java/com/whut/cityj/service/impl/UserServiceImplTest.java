@@ -15,12 +15,13 @@ class UserServiceImplTest {
 
     @Test
     public void testUser(){
-        System.err.println(userServiceImpl.seekUser("小王", "123456").toString());
+//        System.err.println(userServiceImpl.seekUser("小王", "123456").toString());
     }
 
     @Test
     public void testJudgeUser(){
-        System.out.println(userServiceImpl.judgeUser("小王"));
+
+//        System.out.println(userServiceImpl.judgeUser("小王"));
     }
 
     @Test

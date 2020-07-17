@@ -21,6 +21,11 @@ public class ExamPaper {
     public ExamPaper() {
     }
 
+    public ExamPaper(String name, LocalDateTime date) {
+        this.name = name;
+        this.date = date;
+    }
+
     public Integer getId() {
         return id;
     }

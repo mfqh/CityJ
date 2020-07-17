@@ -2,6 +2,7 @@ package com.whut.cityj.service;
 
 import com.whut.cityj.bean.ExamPaper;
 import com.whut.cityj.bean.ExamQuestion;
+import com.whut.cityj.bean.PaperRank;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,5 +15,6 @@ public interface ExamPaperService {
 
     public Map<Integer,ExamQuestion> getExamPaper(int id);
 
+    public PaperRank getOneScore(PaperRank paperRank);
 
 }

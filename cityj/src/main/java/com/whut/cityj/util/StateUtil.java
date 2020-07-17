@@ -21,7 +21,7 @@ public class StateUtil {
     //试卷过期
     public final static Integer TIME_AFTER = 1;
 
-    //试卷题目状态分割号
+    //分割符
     public final static String QUES_DIVISION ="$";
 
 }

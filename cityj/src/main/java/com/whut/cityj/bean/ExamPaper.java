@@ -17,8 +17,6 @@ public class ExamPaper {
 
     private Integer sign;
 
-    //题号--题目
-    private Map<Integer, ExamQuestion> questions;
 
     public ExamPaper() {
     }
@@ -55,16 +53,6 @@ public class ExamPaper {
         this.sign = sign;
     }
 
-    public ExamQuestion getQuestion(int id) {
-        return questions.get(id);
-    }
-
-    public void addQuestion(int id, ExamQuestion questions) {
-        if(this.questions == null){
-            this.questions = new HashMap<Integer, ExamQuestion>();
-        }
-        this.questions.put(id, questions);
-    }
 
     @Override
     public String toString() {
@@ -73,7 +61,6 @@ public class ExamPaper {
                 ", name='" + name + '\'' +
                 ", date=" + date +
                 ", sign=" + sign +
-                ", questions=" + questions +
                 '}';
     }
 }

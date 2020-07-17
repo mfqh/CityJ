@@ -1,10 +1,15 @@
 package com.whut.cityj.service.impl;
 
+import com.whut.cityj.bean.PaperRank;
 import com.whut.cityj.mapper.ExamPaperMapper;
 import com.whut.cityj.service.ExamPaperService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 
 @SpringBootTest
 class ExamPaperServiceImplTest {
@@ -26,10 +31,11 @@ class ExamPaperServiceImplTest {
     public void testMapper(){
         System.err.println(examPaperMapper);
 //        System.err.println(examPaperMapper.selAllPaper());
-        System.out.println(examPaperMapper.selAllQuestion(1));
-
-        System.err.println(examPaperMapper.selOnePaper(1));
-
+//        System.out.println(examPaperMapper.selAllQuestion(1));
+//
+//        System.err.println(examPaperMapper.selOnePaper(1));
+//        examPaperMapper.insUserScore(new PaperRank(1, 1 , 80, LocalDateTime.now()));
+        System.err.println(examPaperMapper.selOneScore(new PaperRank(1,1)));
     }
 
 }

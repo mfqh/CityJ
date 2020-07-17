@@ -3,7 +3,7 @@ spring:
   datasource:
     username: root
     password: gyx814930895
-    url: jdbc:mysql://localhost:3306/cityj?serverTimezone=GMT
+    url: jdbc:mysql://localhost:3306/cityj?serverTimezone=Hongkong
   #Redis
   redis:
     host: 192.168.55.44

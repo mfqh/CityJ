@@ -17,15 +17,32 @@
     </select>
 
     <!--查询某一试卷及其所有题目-->
-    <select id="selOnePaper" resultMap="TotalPaper">
-        select id,name,date,sign from exam_paper where id=#{id};
+    <select id="selOnePaper" resultType="com.whut.cityj.bean.ExamPaper">
+        select id,name,date,sign from exam_paper where id=#{param1};
     </select>
 
-    <resultMap id="TotalPaper" type="com.whut.cityj.bean.ExamPaper">
-        <id property="id" column="id"></id>
-        <!--<collection property="questions" select="com.whut.cityj.mapper.ExamPaperMapper.selAllQuestion"
-                    ofType="com.whut.cityj.bean.ExamQuestion" column="id" />-->
-    </resultMap>
+    <!--插入排行统计页面-->
+    <insert id="insUserScore">
+        insert into paper_rank values(#{eid}, #{uid}, #{score}, #{time})
+    </insert>
 
+    <!--根据uid和eid来查询分数信息-->
+    <select id="selOneScore" resultMap="oneScore">
+        select eid,uid,score,time from paper_rank where eid = #{eid} and uid = #{uid}
+    </select>
+
+    <resultMap id="oneScore" type="com.whut.cityj.bean.PaperRank">
+        <id property="eid" column="eid"></id>
+        <id property="uid" column="uid"></id>
+        <result property="score" column="score"></result>
+        <result property="time" column="time"></result>
+        <association property="examPaper" select="com.whut.cityj.mapper.ExamPaperMapper.selOnePaper" column="eid"
+                        javaType="com.whut.cityj.bean.ExamPaper" >
+            <id property="id" column="id"></id>
+            <result property="name" column="name"></result>
+            <result property="date" column="date"></result>
+            <result property="sign" column="sign"></result>
+        </association>
+    </resultMap>
 
 </mapper>

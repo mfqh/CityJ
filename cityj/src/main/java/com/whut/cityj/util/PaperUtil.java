@@ -1,5 +1,7 @@
 package com.whut.cityj.util;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,12 @@ import java.util.List;
  */
 public class PaperUtil {
 
+    /**
+     * 将选择题的题目跟选项分割开
+     * @param question 题目
+     * @param sign 标记（是否为选择题）
+     * @return 题目所在的List容器
+     */
     public static List<String> typeAnalysis(String question, int sign){
         List<String> list = new ArrayList<>();
         if(sign == StateUtil.TYPE_COMPLETION){
@@ -22,4 +30,20 @@ public class PaperUtil {
         }
         return list;
     }
+
+    /**
+     * 将字符串日期转换为日期格式
+     * @param date 字符串日期（****-**-** **：**：**）
+     * @return 日期格式
+     */
+    public static LocalDateTime date2Format(String date){
+        //指定格式
+        String format = "YYYY-MM-dd hh:mm:ss";
+
+        LocalDateTime dateTime = LocalDateTime.parse(date, DateTimeFormatter.ofPattern(format));
+
+        return dateTime;
+    }
+
+
 }

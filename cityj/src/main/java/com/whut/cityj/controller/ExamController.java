@@ -2,6 +2,7 @@ package com.whut.cityj.controller;
 
 import com.whut.cityj.bean.ExamPaper;
 import com.whut.cityj.bean.ExamQuestion;
+import com.whut.cityj.bean.PaperRank;
 import com.whut.cityj.bean.User;
 import com.whut.cityj.service.ExamPaperService;
 import com.whut.cityj.util.PaperUtil;
@@ -13,6 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -43,16 +48,17 @@ public class ExamController {
     }
 
     /**
-     * 根据试卷返回题目
+     * 根据试卷返回题目及个数
      * @param id 试卷编号
-     * @return 返回第一道题目
+     * @return 返回第一道题目和题目个数（创建答题卡）
      */
-    @GetMapping("/beginExam/{id}")
-    public List<String> beginExam(@PathVariable("id") int id, HttpSession session){
+    @GetMapping("/examBegin/{id}")
+    public List<String> examBegin(@PathVariable("id") int id, HttpSession session){
 
         Map<Integer, ExamQuestion> questions = examPaperServiceImpl.getExamPaper(id);
-        //将试卷存入Session，减少IO压力
+        //将试卷及其ID存入Session，减少IO压力
         session.setAttribute("questions", questions);
+        session.setAttribute("paperId",id);
         //同时在Redis中保存第一题答案，保存一场考试的时间
         User user = (User)session.getAttribute("user");
         stringRedisTemplate.opsForValue().set("question:"+user.getId()+":answer",
@@ -62,6 +68,7 @@ public class ExamController {
                 "0"+StateUtil.QUES_DIVISION+questions.get(1).getScore(), 60*60*2, TimeUnit.SECONDS);
         //分析第一道题输出
         List<String> list = PaperUtil.typeAnalysis(questions.get(1).getQuestion(), questions.get(1).getSign());
+        list.add(questions.size()+"");
         return list;
     }
 
@@ -72,8 +79,8 @@ public class ExamController {
      * @param session 内置Session
      * @return 下一题
      */
-    @GetMapping("/selectQuestion/{id}/{answer}")
-    public List<String> selectQuestion(@PathVariable("id") int id,
+    @GetMapping("/examSelectQuestion/{id}/{answer}")
+    public List<String> examSelectQuestion(@PathVariable("id") int id,
                                        @PathVariable("answer") String answer,
                                        HttpSession session){
         //拿出用户
@@ -85,7 +92,7 @@ public class ExamController {
         Integer queScore = Integer.parseInt(scores[1]);
         String queryAnswer = stringRedisTemplate.opsForValue().get("question:"+user.getId()+":answer");
         //防止前后空格影响判断
-        if(answer.trim().equals(answer.trim())){
+        if(answer.trim().equals(queryAnswer.trim())){
             totalScore += queScore;
         }
 
@@ -100,6 +107,64 @@ public class ExamController {
         //返回题目
         return list;
     }
+
+    /**
+     * 判断当前题答案，并提交
+     * @param answer 当前题答案
+     * @param session 内置Session对象
+     * @return 成绩统计页面
+     */
+    @GetMapping("/examCommit/{answer}")
+    public String examCommit(@PathVariable("answer") String answer,
+                             HttpSession session){
+        //拿出用户
+        User user = (User)session.getAttribute("user");
+        //判断上一题正误
+        String score = stringRedisTemplate.opsForValue().get("question:"+user.getId()+":score");
+        String queryAnswer = stringRedisTemplate.opsForValue().get("question:"+user.getId()+":answer");
+        String scores[] = score.split(StateUtil.QUES_DIVISION);
+        Integer totalScore = Integer.parseInt(scores[0]);
+        Integer queScore = Integer.parseInt(scores[1]);
+        //设置过期时间为0
+        stringRedisTemplate.expire("question:"+user.getId()+":score", Duration.ZERO);
+        stringRedisTemplate.expire("question:"+user.getId()+":answer", Duration.ZERO);
+        //取出试卷Id
+        int id = (int)session.getAttribute("paperId");
+        //从session中移除试卷
+        session.removeAttribute("questions");
+        session.removeAttribute("paperId");
+        //防止前后空格影响判断
+        if(answer.trim().equals(queryAnswer.trim())){
+            totalScore += queScore;
+        }
+        //将成绩存入分数排行数据库
+        LocalDateTime localDateTime = LocalDateTime.now();
+        PaperRank paperRank = new PaperRank(id, user.getId(), totalScore, localDateTime);
+        //返回成绩统计页面
+        return "result";
+    }
+
+    /**
+     * 根据试卷编号，来查询具体分数和使用时间
+     * @param eid
+     * @param session
+     * @return
+     */
+    @GetMapping("/examScore/{eid}")
+    public PaperRank examScore(@PathVariable("eid") Integer eid,
+                            HttpSession session){
+        //拿出用户
+        User user = (User)session.getAttribute("user");
+        PaperRank paperRank = new PaperRank(eid, user.getId());
+        paperRank = examPaperServiceImpl.getOneScore(paperRank);
+        paperRank.setUser(user);
+        return paperRank;
+    }
+
+
+
+
+
 
 
 }

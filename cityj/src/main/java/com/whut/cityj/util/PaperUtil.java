@@ -16,8 +16,7 @@ public class PaperUtil {
      * @param sign 标记（是否为选择题）
      * @return 题目所在的List容器
      */
-    public static List<String> typeAnalysis(String question, int sign){
-        List<String> list = new ArrayList<>();
+    public static List<String> typeAnalysis(List<String> list, String question, int sign){
         if(sign == StateUtil.TYPE_COMPLETION){
             //填空题直接返回
             list.add(question);

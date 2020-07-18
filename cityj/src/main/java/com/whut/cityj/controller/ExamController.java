@@ -65,8 +65,10 @@ public class ExamController {
         stringRedisTemplate.opsForValue().set("question:"+user.getId()+":score",
                 "0"+StateUtil.QUES_DIVISION+questions.get(1).getScore(), 60*60*2, TimeUnit.SECONDS);
         //分析第一道题输出
-        List<String> list = PaperUtil.typeAnalysis(questions.get(1).getQuestion(), questions.get(1).getSign());
+        List<String> list = new ArrayList<String>();
+        //放入题目总数
         list.add(questions.size()+"");
+        list = PaperUtil.typeAnalysis(list, questions.get(1).getQuestion(), questions.get(1).getSign());
         return list;
     }
 
@@ -96,7 +98,8 @@ public class ExamController {
 
         //获取下一题目
         Map<Integer, ExamQuestion> questions = (Map<Integer, ExamQuestion>)session.getAttribute("questions");
-        List<String> list = PaperUtil.typeAnalysis(questions.get(id).getQuestion(), questions.get(id).getSign());
+        List<String> list = new ArrayList<>();
+        list = PaperUtil.typeAnalysis(list, questions.get(id).getQuestion(), questions.get(id).getSign());
         //放入答案及分数
         stringRedisTemplate.opsForValue().set("question:"+user.getId()+":answer",
                 questions.get(id).getAnswer(), 60*60*2, TimeUnit.SECONDS);
@@ -124,7 +127,7 @@ public class ExamController {
         Integer totalScore = Integer.parseInt(scores[0]);
         Integer queScore = Integer.parseInt(scores[1]);
         //防止前后空格影响判断
-        if(answer.trim().equals(queryAnswer.trim())){
+        if(queryAnswer.trim().equals(answer.trim())){
             totalScore += queScore;
         }
         //取出试卷Id

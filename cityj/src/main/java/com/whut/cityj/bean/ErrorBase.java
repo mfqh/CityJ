@@ -14,6 +14,11 @@ public class ErrorBase {
     public ErrorBase() {
     }
 
+    public ErrorBase(Integer uid, Integer aid) {
+        this.uid = uid;
+        this.aid = aid;
+    }
+
     public Integer getId() {
         return id;
     }

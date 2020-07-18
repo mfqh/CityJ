@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whut.cityj.mapper.AfcQuestionMapper">
+
+    <!--根据书籍版本返回所有章节-->
+    <select id="selChapter" resultType="com.whut.cityj.bean.Chapter">
+        select id, number, book_version from chapter where book_version = #{param1}
+    </select>
+
+    <!--根据章节id返回该章节所有题目-->
+    <select id="selChapterQuestions" resultType="com.whut.cityj.bean.AfcQuestion">
+        select id, cid, que_number, question, answer, analy, sign from afc_question
+        where cid = #{param1}
+    </select>
+
+    <!--错题入库-->
+    <insert id="insErrorQuestion">
+        insert into error_base(uid, aid) values(#{uid}, #{aid})
+    </insert>
+
+
+
+</mapper>

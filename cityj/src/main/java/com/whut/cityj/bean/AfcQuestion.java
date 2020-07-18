@@ -15,7 +15,7 @@ public class AfcQuestion {
 
     private String answer;
 
-    private Integer analy;
+    private String analy;
 
     private Integer sign;
 
@@ -62,11 +62,11 @@ public class AfcQuestion {
         this.answer = answer;
     }
 
-    public Integer getAnaly() {
+    public String getAnaly() {
         return analy;
     }
 
-    public void setAnaly(Integer analy) {
+    public void setAnaly(String analy) {
         this.analy = analy;
     }
 

@@ -7,15 +7,14 @@ public class Chapter {
 
     private int id;
 
-    private String name;
+    private Integer number;
 
     private String bookVersion;
 
     public Chapter() {
     }
 
-    public Chapter(String name, String bookVersion) {
-        this.name = name;
+    public Chapter(String bookVersion) {
         this.bookVersion = bookVersion;
     }
 
@@ -27,12 +26,12 @@ public class Chapter {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Integer getNumber() {
+        return number;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public String getBookVersion() {
@@ -47,7 +46,7 @@ public class Chapter {
     public String toString() {
         return "Chapter{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", number=" + number +
                 ", bookVersion='" + bookVersion + '\'' +
                 '}';
     }

@@ -1,5 +1,7 @@
 package com.whut.cityj.bean;
 
+import java.util.List;
+
 /**
  * 错题库
  */
@@ -10,6 +12,8 @@ public class ErrorBase {
     private Integer uid;
 
     private Integer aid;
+
+    private AfcQuestion errQuestion;
 
     public ErrorBase() {
     }
@@ -43,12 +47,21 @@ public class ErrorBase {
         this.aid = aid;
     }
 
+    public AfcQuestion getErrQuestion() {
+        return errQuestion;
+    }
+
+    public void setErrQuestion(AfcQuestion errQuestion) {
+        this.errQuestion = errQuestion;
+    }
+
     @Override
     public String toString() {
         return "ErrorBase{" +
                 "id=" + id +
                 ", uid=" + uid +
                 ", aid=" + aid +
+                ", errQuestion=" + errQuestion +
                 '}';
     }
 }

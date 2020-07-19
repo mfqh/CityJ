@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.whut.cityj.mapper.ErrorBaseMapper">
+
+    <!--根据user查找到其所有错题-->
+    <select id="selAllError" resultMap="allError">
+        SELECT e.*, a.id aeid, a.cid acid, a.que_number aQueNumber, a.question aQuestion,
+        a.answer aAnswer, a.analy aAnaly, a.sign aSign
+        FROM error_base e
+        LEFT OUTER JOIN afc_question a
+        ON e.aid = a.id
+        WHERE uid = #{id}
+    </select>
+
+    <resultMap id="allError" type="com.whut.cityj.bean.ErrorBase">
+        <id property="id" column="id"></id>
+        <result property="uid" column="uid"></result>
+        <result property="aid" column="aid"></result>
+        <association property="errQuestion" javaType="com.whut.cityj.bean.AfcQuestion">
+            <id property="id" column="aeid"></id>
+            <result property="cid" column="acid"></result>
+            <result property="queNumber" column="aQueNumber"></result>
+            <result property="question" column="aQuestion"></result>
+            <result property="answer" column="aAnswer"></result>
+            <result property="analy" column="aAnaly"></result>
+            <result property="sign" column="aSign"></result>
+        </association>
+     </resultMap>
+
+    <!--删除错题-->
+    <delete id="delErrorQuestion">
+        delete from error_base where uid = #{uid} and aid = #{aid}
+    </delete>
+
+
+</mapper>

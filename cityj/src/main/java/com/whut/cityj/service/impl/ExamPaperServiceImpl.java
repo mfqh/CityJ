@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -21,9 +22,22 @@ public class ExamPaperServiceImpl implements ExamPaperService {
     ExamPaperMapper examPaperMapper;
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional()
     public List<ExamPaper> getAllPaper() {
-        return examPaperMapper.selAllPaper();
+        List<ExamPaper>  papers = examPaperMapper.selAllPaper();
+        //根据时间修改试卷状态：未到时间，已过时
+        for (ExamPaper paper : papers) {
+            if(paper.getSign() == 0){
+                //当前时间超过试卷答题开始时间后两小时
+                if(LocalDateTime.now().isAfter(paper.getDate().plusHours(2))){
+                    //修改考试状态
+                    paper.setSign(1);
+                    //修改数据库数据
+                    examPaperMapper.upPaperMessage(paper);
+                }
+            }
+        }
+        return papers;
     }
 
     @Override

@@ -5,11 +5,12 @@
 
 <mapper namespace="com.whut.cityj.mapper.SpeQuestionMapper">
 
+    <!--返回对应版本的所有专项-->
     <select id="selType" resultType="com.whut.cityj.bean.SpecilType">
         select id, type, book_version from specil_type where book_version = #{book_version}
     </select>
 
-    <!--根据章节id返回该章节所有题目-->
+    <!--根据专项id返回该专项所有题目-->
     <select id="selSpeQuestions" resultType="com.whut.cityj.bean.SpeQuestion">
         select id, sid, que_number, question, answer, analy, sign from spe_question
         where sid = #{param1}

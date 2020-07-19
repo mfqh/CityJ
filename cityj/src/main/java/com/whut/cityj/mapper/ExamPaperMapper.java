@@ -38,4 +38,7 @@ public interface ExamPaperMapper {
 
       //向试卷中插入题目
       public Boolean insNewQuestion(ExamQuestion examQuestion);
+
+      //修改试卷信息
+      public Boolean upPaperMessage(ExamPaper examPaper);
 }

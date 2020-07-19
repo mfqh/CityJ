@@ -8,7 +8,7 @@
 
     <!--查询库中未到测试时间试卷-->
     <select id="selAllPaper" resultType="com.whut.cityj.bean.ExamPaper">
-        select id,name,date,sign from exam_paper where sign = 0;
+        select id,name,date,sign from exam_paper;
     </select>
 
     <!--查询某一试卷所有题目-->
@@ -64,5 +64,22 @@
         insert into exam_question(eid, que_number, question, answer, sign, score)
         values(#{eid}, #{queNumber}, #{question}, #{answer}, #{sign}, #{score})
     </insert>
+
+    <!--修改试卷信息-->
+    <update id="upPaperMessage">
+        update exam_paper set
+        <trim suffixOverrides=",">
+            <if test="name != null and !name.equals('')">
+                name = #{name},
+            </if>
+            <if test="date != null">
+                date = #{date},
+            </if>
+            <if test="sign != null">
+                sign = #{sign},
+            </if>
+        </trim>
+        where id = #{id}
+    </update>
 
 </mapper>

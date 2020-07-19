@@ -64,7 +64,7 @@ public class UserController {
                 //返回主页路径，跳转到主页
                 return "main";
             }else{
-                return "请输入正确得验证码";
+                return "请输入正确的验证码";
             }
         }
         return "用户名或密码错误";

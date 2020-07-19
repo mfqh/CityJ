@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 @RestController
 public class AfcController {
@@ -38,9 +37,9 @@ public class AfcController {
 
     /**
      * 根据传入的章节Id来查询该章节所有题目，并返回第一道题目
-     * @param id
-     * @param session
-     * @return
+     * @param id 章节id
+     * @param session 内置Session
+     * @return 题目总数&第一道题目
      */
     @GetMapping("/afcSelChapter/{id}")
     public List<String> afcSelChapter(@PathVariable("id") Integer id,
@@ -65,11 +64,11 @@ public class AfcController {
      * @return 判断结果及题目解析
      */
     @GetMapping("/afcAnalyAnswer/{answer}")
-    public List<String> examSelectQuestion(@PathVariable("answer") String answer,
+    public List<String> afcAnalyAnswer(@PathVariable("answer") String answer,
                                            HttpSession session){
         //从session获取所有题目及上一题id
         Map<Integer, AfcQuestion> afcQuestions = (Map<Integer, AfcQuestion>)session.getAttribute("afcQuestion");
-        Integer id = (Integer)session.getAttribute("afciId");
+        Integer id = (Integer)session.getAttribute("afcId");
         List<String> list = new ArrayList<>();
         //防止前后空格影响判断
         if(afcQuestions.get(id).getAnswer().trim().equals(answer.trim())){
@@ -86,6 +85,12 @@ public class AfcController {
         return list;
     }
 
+    /**
+     * 根据id返回下一题
+     * @param id 下一题id
+     * @param session 内置Session
+     * @return 下一题题目
+     */
     @GetMapping("/afcSelQuestion/{id}")
     public List<String> afcSelQuestion(@PathVariable("id") Integer id,
                                        HttpSession session){

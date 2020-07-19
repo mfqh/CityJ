@@ -1,20 +1,20 @@
 package com.whut.cityj.bean;
 
 /**
- * 章节
+ * 专项类型
  */
-public class Chapter {
+public class SpecilType {
 
     private int id;
 
-    private String number;
+    private String type;
 
     private String bookVersion;
 
-    public Chapter() {
+    public SpecilType() {
     }
 
-    public Chapter(String bookVersion) {
+    public SpecilType(String bookVersion) {
         this.bookVersion = bookVersion;
     }
 
@@ -26,12 +26,12 @@ public class Chapter {
         this.id = id;
     }
 
-    public String getNumber() {
-        return number;
+    public String getType() {
+        return type;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getBookVersion() {
@@ -44,9 +44,9 @@ public class Chapter {
 
     @Override
     public String toString() {
-        return "Chapter{" +
+        return "SpecilType{" +
                 "id=" + id +
-                ", number=" + number +
+                ", type='" + type + '\'' +
                 ", bookVersion='" + bookVersion + '\'' +
                 '}';
     }
